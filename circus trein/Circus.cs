@@ -17,7 +17,7 @@ namespace CircusTrein
             List<ExperimentalCart> Experimental_carts = new List<ExperimentalCart>();
             List<Cart> train = new List<Cart>();
             bool addedAnimal;
-            foreach (Animal animal in animals.OrderByDescending(animal => animal.IsCarnivor).ThenByDescending(animal => animal.Size))
+            foreach (Animal animal in animals.OrderByDescending(animal => animal.IsCarnivor).ThenBy(animal => animal.Size))
             {
                 addedAnimal = false;
                 foreach (Cart cart in train.Where<Cart>(cart => cart.CurrentCapacity < cart.maxCapacity))

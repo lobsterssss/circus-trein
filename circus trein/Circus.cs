@@ -1,4 +1,5 @@
-﻿using System;
+﻿using circus_trein;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,32 +11,33 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace CircusTrein
 {
-      internal class Circus
+
+
+    internal class Circus
     {
-        public List<Cart> moveAnimals(List<Animal> animals) 
+        public Train moveAnimals() 
         {
-            List<ExperimentalCart> Experimental_carts = new List<ExperimentalCart>();
-            List<Cart> train = new List<Cart>();
-            bool addedAnimal;
-            foreach (Animal animal in animals.OrderByDescending(animal => animal.IsCarnivor).ThenBy(animal => animal.Size))
+            Train Train = new Train();
+            List<Animal> animals = AnimalCollection.GetAnimalList();
+
+            animals = animals.OrderByDescending(animal => animal.IsCarnivor).ThenByDescending(animal => animal.AnimalSize - 10 ).ToList();
+            while (animals.Count() != 0)
             {
-                addedAnimal = false;
-                foreach (Cart cart in train.Where<Cart>(cart => cart.CurrentCapacity < cart.maxCapacity))
-                {
-                    if (cart.checkCartConstraints(animal)) {
-                        cart.addAnimal(animal);
-                        addedAnimal = true;
-                        break;
-                    }
-                }
-                if (!addedAnimal)
-                {
-                    Cart carts = new Cart();
-                    train.Add(carts);
-                    carts.addAnimal(animal);
-                }
+                animals = Train.AddAnimal(animals);
             }
-                return train;
+                return Train;
+        }
+
+        public Train moveAnimals(List<Animal> animals)
+        {
+            Train Train = new Train();
+
+            animals = animals.OrderByDescending(animal => animal.IsCarnivor).ThenByDescending(animal => animal.AnimalSize - 10).ToList();
+            while (animals.Count() != 0)
+            {
+                animals = Train.AddAnimal(animals);
+            }
+            return Train;
         }
 
     }

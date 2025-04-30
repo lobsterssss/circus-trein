@@ -12,7 +12,7 @@ namespace CircusTrein
 {
     internal class Animal
     {
-        public ESize Size { get; private set; }
+        public Size AnimalSize { get; private set; }
         public bool IsCarnivor  { get; private set; }
 
         internal Circus Circus
@@ -23,34 +23,33 @@ namespace CircusTrein
             }
         }
 
-        public enum ESize 
+        public enum Size 
             {
-                small = 1,
-                medium = 3,
-                large = 5
+                Small = 1,
+                Medium = 3,
+                Large = 5
             }
 
-        public Animal() : this(ESize.small, false) 
+        public Animal() : this(Size.Small, false) 
         {
         }
-        public Animal(ESize size) : this(size, false)
+        public Animal(Size size) : this(size, false)
         {
         }
-        public Animal(bool isCarnivor) : this(ESize.small, isCarnivor)
+        public Animal(bool isCarnivor) : this(Size.Small, isCarnivor)
         {
         }
 
-        public Animal(ESize size, bool isCarnivor, int priority = 1)
+        public Animal(Size size, bool isCarnivor, int priority = 1)
         {
-            Size = size;
+            AnimalSize = size;
             IsCarnivor = isCarnivor;
         }
 
         public string ToString() 
         {
             string Diet = IsCarnivor ? "Carnivore" : "Herbivore";
-            return $"{this.Size} : {Diet}";
+            return $"{this.AnimalSize} : {Diet}";
         }
-
     }
 }

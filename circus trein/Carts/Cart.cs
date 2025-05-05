@@ -18,7 +18,7 @@ namespace CircusTrain.Carts
             this.cartConstraints = new List<ICartConstraint>();
             this.cartConstraints.Add(new CartCapacity());
             this.cartConstraints.Add(new AnimalBiggerThanLargestCarnivore());
-            this.cartConstraints.Add(new AnimalSmallerThanLargestAnimal());
+            this.cartConstraints.Add(new CarnivoreSmallerThanSmallestAnimal());
         }
 
         public List<Animal> Animals { get; private set; }

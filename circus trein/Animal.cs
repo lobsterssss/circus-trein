@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("CircusTrainUnitTests")]
 
-
 namespace CircusTrain
 {
     internal class Animal

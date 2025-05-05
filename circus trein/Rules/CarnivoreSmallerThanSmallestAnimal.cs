@@ -8,7 +8,7 @@
     using CircusTrain;
     using CircusTrain.Carts;
 
-    internal class AnimalSmallerThanLargestAnimal : ICartConstraint
+    internal class CarnivoreSmallerThanSmallestAnimal : ICartConstraint
     {
         /// <inheritdoc/>
         public bool CanAddAnimal(Animal animal, Cart cart)

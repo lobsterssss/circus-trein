@@ -36,7 +36,7 @@ namespace CircusTrain
             {
                 animals = train.AddAnimal(animals);
             }
-
+            train.AddExperimental();
             return train;
         }
     }

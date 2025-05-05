@@ -1,44 +1,43 @@
-﻿using circus_trein;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using CircusTrain;
 
-[assembly: InternalsVisibleTo("CircusTreinUnitTests")]
+[assembly: InternalsVisibleTo("CircusTrainUnitTests")]
 
-namespace CircusTrein
+namespace CircusTrain
 {
-
-
     internal class Circus
     {
-        public Train moveAnimals() 
+        public Train MoveAnimals()
         {
-            Train Train = new Train();
+            Train train = new Train();
             List<Animal> animals = AnimalCollection.GetAnimalList();
 
-            animals = animals.OrderByDescending(animal => animal.IsCarnivor).ThenByDescending(animal => animal.AnimalSize - 10 ).ToList();
+            animals = animals.OrderByDescending(animal => animal.IsCarnivore).ThenByDescending(animal => animal.AnimalSize).ToList();
             while (animals.Count() != 0)
             {
-                animals = Train.AddAnimal(animals);
+                animals = train.AddAnimal(animals);
             }
-                return Train;
+
+            train.AddExperimental();
+            return train;
         }
 
-        public Train moveAnimals(List<Animal> animals)
+        public Train MoveAnimals(List<Animal> animals)
         {
-            Train Train = new Train();
+            Train train = new Train();
 
-            animals = animals.OrderByDescending(animal => animal.IsCarnivor).ThenByDescending(animal => animal.AnimalSize - 10).ToList();
+            animals = animals.OrderByDescending(animal => animal.IsCarnivore).ThenByDescending(animal => animal.AnimalSize).ToList();
             while (animals.Count() != 0)
             {
-                animals = Train.AddAnimal(animals);
+                animals = train.AddAnimal(animals);
             }
-            return Train;
-        }
 
+            return train;
+        }
     }
 }

@@ -1,63 +1,72 @@
-﻿using CircusTrein;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace circus_trein
+﻿namespace CircusTrain
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using CircusTrain;
+
     internal static class AnimalCollection
     {
-        private static List<Animal> Animals = new List<Animal>();
+        private static List<Animal> animals = new List<Animal>();
 
-        public static List<Animal> GetAnimalList() 
+        public static List<Animal> GetAnimalList()
         {
             List<Animal> animals = new List<Animal>();
-            animals.AddRange(Animals);
+            animals.AddRange(AnimalCollection.animals);
             return animals;
         }
 
         public static void ClearAnimalList()
         {
-            Animals.Clear();
+            animals.Clear();
         }
 
-        public static void CreateMultipulAnimals(int SH, int MH, int LH, int SC, int MC, int LC)
+        /// <summary>
+        /// adds animals of the given values.
+        /// </summary>
+        /// <param name="sH">adds x amount of small herbivores animals.</param>
+        /// <param name="mH">adds x amount of medium herbivores animals.</param>
+        /// <param name="lH">adds x amount of large herbivores animals.</param>
+        /// <param name="sC">adds x amount of small carnivores animals.</param>
+        /// <param name="mC">adds x amount of medium carnivores animals.</param>
+        /// <param name="lC">adds x amount of large carnivores animals.</param>
+        public static void CreateMultipleAnimals(int sH, int mH, int lH, int sC, int mC, int lC)
         {
             /* adds herbivores */
-            Animals.Clear();
+            animals.Clear();
 
-            for (int i = 0; i < LH; i++)
+            for (int i = 0; i < lH; i++)
             {
-                Animals.Add(new Animal(Animal.Size.Large, isCarnivor: false));
+                animals.Add(new Animal(Animal.Size.Large, isCarnivore: false));
             }
 
-            for (int i = 0; i < MH; i++)
+            for (int i = 0; i < mH; i++)
             {
-                Animals.Add(new Animal(Animal.Size.Medium, isCarnivor: false));
+                animals.Add(new Animal(Animal.Size.Medium, isCarnivore: false));
             }
 
-            for (int i = 0; i < SH; i++)
+            for (int i = 0; i < sH; i++)
             {
-                Animals.Add(new Animal(Animal.Size.Small, isCarnivor: false));
+                animals.Add(new Animal(Animal.Size.Small, isCarnivore: false));
             }
 
             /* adds carnivores */
-            for (int i = 0; i < LC; i++)
+            for (int i = 0; i < lC; i++)
             {
-                Animals.Add(new Animal(Animal.Size.Large, isCarnivor: true));
+                animals.Add(new Animal(Animal.Size.Large, isCarnivore: true));
             }
 
-            for (int i = 0; i < MC; i++)
+            for (int i = 0; i < mC; i++)
             {
-                Animals.Add(new Animal(Animal.Size.Medium, isCarnivor: true));
+                animals.Add(new Animal(Animal.Size.Medium, isCarnivore: true));
             }
 
-            for (int i = 0; i < SC; i++)
+            for (int i = 0; i < sC; i++)
             {
-                Animals.Add(new Animal(Animal.Size.Small, isCarnivor: true));
+                animals.Add(new Animal(Animal.Size.Small, isCarnivore: true));
             }
         }
     }

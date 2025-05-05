@@ -1,4 +1,4 @@
-﻿namespace CircusTrein
+﻿namespace CircusTrain
 {
     partial class Form1
     {

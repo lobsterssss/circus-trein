@@ -1,4 +1,4 @@
-namespace CircusTrein
+namespace CircusTrain
 {
     internal static class Program
     {

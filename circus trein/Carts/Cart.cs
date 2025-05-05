@@ -1,88 +1,99 @@
-﻿using circus_trein.Rules;
-using Microsoft.VisualBasic.ApplicationServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+﻿using System.Runtime.CompilerServices;
+using CircusTrain.Rules;
 
-[assembly: InternalsVisibleTo("CircusTreinUnitTests")]
+[assembly: InternalsVisibleTo("CircusTrainUnitTests")]
 
-
-namespace CircusTrein
+namespace CircusTrain.Carts
 {
     internal class Cart
     {
-        public int maxCapacity { get; private set; } = 10;
-        public List<Animal> animals { get; private set; }
-        public int CurrentCapacity { get; private set; }
+        private readonly List<ICartConstraint> cartConstraints;
 
-        private List<ICartConstraint> CartConstraints;
-
-        internal Circus Circus
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Cart"/> class.
+        /// </summary>
         public Cart()
         {
-            animals = new List<Animal>();
-            CartConstraints = new List<ICartConstraint>();
-            CartConstraints.Add(new CartCapacity());
-            CartConstraints.Add(new AnimalBiggerThanLargestCarnivore());
-            CartConstraints.Add(new AnimalSmallerThanLargestAnimal());
-
+            this.Animals = new List<Animal>();
+            this.cartConstraints = new List<ICartConstraint>();
+            this.cartConstraints.Add(new CartCapacity());
+            this.cartConstraints.Add(new AnimalBiggerThanLargestCarnivore());
+            this.cartConstraints.Add(new AnimalSmallerThanLargestAnimal());
         }
-        public bool addAnimal(Animal animal)
+
+        public List<Animal> Animals { get; private set; }
+
+        public int CurrentCapacity { get; private set; }
+
+        public int MaxCapacity { get; private set; } = 10;
+
+        /// <summary>
+        /// checks if a Object Animal can be put inside of this class and adds it.
+        /// </summary>
+        /// <param name="animal">the Animal that is being checked and added.</param>
+        /// <returns>bool.</returns>
+        public bool AddAnimal(Animal animal)
         {
-            if (!checkCartConstraints(animal))
+            if (!this.CheckCartConstraints(animal))
             {
                 return false;
             }
 
-            animals.Add(animal);
-            CurrentCapacity = CalcCurrentCapacity();
+            this.Animals.Add(animal);
+            this.CurrentCapacity = this.CalculateCurrentCapacity();
 
             return true;
-
         }
 
-        public bool checkCartConstraints(Animal animal)
+        /// <summary>
+        /// checks if a Object Animal can be put inside of this class.
+        /// </summary>
+        /// <param name="animal">the Animal that is being checked to see if it can be added.</param>
+        /// <returns>bool.</returns>
+        public bool CheckCartConstraints(Animal animal)
         {
-
-            foreach (ICartConstraint Rules in CartConstraints)
+            foreach (ICartConstraint rules in this.cartConstraints)
             {
-                if (!Rules.CanAddAnimal(animal, this)) return false;
+                if (!rules.CanAddAnimal(animal, this))
+                {
+                    return false;
+                }
             }
 
             return true;
         }
 
-        private int CalcCurrentCapacity()
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            string cartData = string.Empty;
+
+            foreach (Animal animal in this.Animals)
+            {
+                cartData = cartData + animal.ToString() + ", ";
+            }
+
+            return "[" + cartData + "]";
+        }
+
+        /// <summary>
+        /// checks if a Object Animal can be put inside of this class.
+        /// </summary>
+        /// <returns>int.</returns>
+        public int GetAnimalAmount()
+        {
+            return this.Animals.Count();
+        }
+
+        private int CalculateCurrentCapacity()
         {
             int capacity = 0;
-            foreach (Animal animal in animals)
+            foreach (Animal animal in this.Animals)
             {
                 capacity += (int)animal.AnimalSize;
             }
+
             return capacity;
-        }
-
-        public string ToString()
-        {
-            string CartData = "";
-
-            foreach (Animal animal in animals)
-            {
-                CartData = CartData + animal.ToString() + ", ";
-            }
-
-            return "[" + CartData + "]";
         }
     }
 }

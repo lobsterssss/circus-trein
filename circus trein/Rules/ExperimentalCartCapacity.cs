@@ -8,12 +8,12 @@
     using CircusTrain;
     using CircusTrain.Carts;
 
-    internal class AnimalSmallerThanLargestAnimal : ICartConstraint
+    internal class ExperimentalCartCapacity : ICartConstraint
     {
         /// <inheritdoc/>
         public bool CanAddAnimal(Animal animal, Cart cart)
         {
-           return !cart.Animals.Any<Animal>(a => animal.IsCarnivore && animal.AnimalSize >= a.AnimalSize);
+            return cart.GetAnimalAmount() < 2;
         }
     }
 }

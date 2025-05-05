@@ -5,51 +5,34 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("CircusTreinUnitTests")]
+[assembly: InternalsVisibleTo("CircusTrainUnitTests")]
 
 
-namespace CircusTrein
+namespace CircusTrain
 {
     internal class Animal
     {
+        public Animal(Size size, bool isCarnivore)
+        {
+            this.AnimalSize = size;
+            this.IsCarnivore = isCarnivore;
+        }
+
+        public enum Size
+        {
+            Small = 1,
+            Medium = 3,
+            Large = 5,
+        }
+
         public Size AnimalSize { get; private set; }
-        public bool IsCarnivor  { get; private set; }
 
-        internal Circus Circus
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public bool IsCarnivore { get; private set; }
 
-        public enum Size 
-            {
-                Small = 1,
-                Medium = 3,
-                Large = 5
-            }
-
-        public Animal() : this(Size.Small, false) 
+        public new string ToString()
         {
-        }
-        public Animal(Size size) : this(size, false)
-        {
-        }
-        public Animal(bool isCarnivor) : this(Size.Small, isCarnivor)
-        {
-        }
-
-        public Animal(Size size, bool isCarnivor, int priority = 1)
-        {
-            AnimalSize = size;
-            IsCarnivor = isCarnivor;
-        }
-
-        public string ToString() 
-        {
-            string Diet = IsCarnivor ? "Carnivore" : "Herbivore";
-            return $"{this.AnimalSize} : {Diet}";
+            string diet = this.IsCarnivore ? "Carnivore" : "Herbivore";
+            return $"{this.AnimalSize} : {diet}";
         }
     }
 }

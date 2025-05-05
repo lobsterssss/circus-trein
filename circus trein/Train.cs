@@ -1,51 +1,84 @@
-﻿using CircusTrein;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace circus_trein
+﻿namespace CircusTrain
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using CircusTrain.Carts;
+
     internal class Train
     {
-        List<Cart> train = new List<Cart>();
+        private List<Cart> train = new List<Cart>();
 
-        public List<Animal> AddAnimal(List<Animal> animals) 
+        public List<Animal> AddAnimal(List<Animal> animals)
         {
             bool addedAnimal = false;
-            foreach (Cart cart in train.Where<Cart>(cart => cart.CurrentCapacity < cart.maxCapacity))
+            foreach (Cart cart in this.train.Where<Cart>(cart => cart.CurrentCapacity < cart.MaxCapacity))
             {
-                int search = cart.maxCapacity - cart.CurrentCapacity;
-                animals = animals.OrderByDescending(animal => animal.IsCarnivor).ThenByDescending(animal => search % 5 == 0 ? animal.AnimalSize : search - animal.AnimalSize - 1).ToList();
-                if (cart.checkCartConstraints(animals.First()))
+                int search = cart.MaxCapacity - cart.CurrentCapacity;
+                animals = animals.OrderByDescending(animal => animal.IsCarnivore).ThenByDescending(animal => search % 5 == 0 ? animal.AnimalSize : search - animal.AnimalSize).ToList();
+                if (cart.CheckCartConstraints(animals.First()))
                 {
-                    cart.addAnimal(animals.First());
+                    cart.AddAnimal(animals.First());
                     animals.Remove(animals.First());
 
                     addedAnimal = true;
                     break;
                 }
             }
+
             if (!addedAnimal)
             {
                 Cart carts = new Cart();
-                train.Add(carts);
-                carts.addAnimal(animals.First());
+                this.train.Add(carts);
+                carts.AddAnimal(animals.First());
                 animals.Remove(animals.First());
-
             }
+
             return animals;
         }
 
-        public int GetCount() 
+        public void AddExperimental()
         {
-            return train.Count();
+            ExperimentalCart experimentalCart = new ExperimentalCart();
+            int experimentalCartCount = 1;
+            foreach (Cart cart in this.train.Where<Cart>(cart => cart.GetAnimalAmount() == 1 && cart.Animals.First().AnimalSize <= Animal.Size.Medium).ToList())
+            {
+                if (experimentalCart.CheckCartConstraints(cart.Animals.First()))
+                {
+                    experimentalCart.AddAnimal(cart.Animals.First());
+                    this.train.Remove(cart);
+                }
+                else if (experimentalCartCount < 4)
+                {
+                    this.train.Add(experimentalCart);
+                    experimentalCartCount++;
+                    experimentalCart = new ExperimentalCart();
+                    experimentalCart.AddAnimal(cart.Animals.First());
+                    this.train.Remove(cart);
+                }
+            }
+
+            this.train.Add(experimentalCart);
+
+            this.RemoveEmptyCarts();
+        }
+
+        public int GetCount()
+        {
+            return this.train.Count();
         }
 
         public IReadOnlyCollection<Cart> GetTrain()
         {
-            return train.AsReadOnly();
+            return this.train.AsReadOnly();
+        }
+
+        private void RemoveEmptyCarts()
+        {
+            foreach (Cart cart in this.train.Where(cart => cart.GetAnimalAmount() == 0).ToList())
+            {
+                this.train.Remove(cart);
+            }
         }
     }
 }

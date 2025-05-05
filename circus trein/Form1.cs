@@ -1,7 +1,8 @@
-using circus_trein;
+using CircusTrain;
+using CircusTrain.Carts;
 using System.Linq;
 
-namespace CircusTrein
+namespace CircusTrain
 {
     public partial class Form1 : Form
     {
@@ -16,15 +17,15 @@ namespace CircusTrein
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AnimalCollection.CreateMultipulAnimals(int.Parse(lblSH.Text), int.Parse(lblMH.Text), int.Parse(lblLH.Text), int.Parse(lblSC.Text), int.Parse(lblMC.Text), int.Parse(lblLC.Text));
+            AnimalCollection.CreateMultipleAnimals(int.Parse(lblSH.Text), int.Parse(lblMH.Text), int.Parse(lblLH.Text), int.Parse(lblSC.Text), int.Parse(lblMC.Text), int.Parse(lblLC.Text));
             
-            train = circus.moveAnimals();
+            train = circus.MoveAnimals();
 
             lblCartCount.Text = train.GetCount().ToString();
             string show = "";
-            foreach (Cart item in train.GetTrain())
+            foreach (var cart in train.GetTrain())
             {
-                show = show + item.ToString() + "\n";
+                show = show + cart.ToString() + "\n";
             }
             lblTrein.Text = show;
         }

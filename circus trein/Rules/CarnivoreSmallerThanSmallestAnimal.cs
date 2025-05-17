@@ -15,5 +15,10 @@
         {
            return !cart.Animals.Any<Animal>(a => animal.IsCarnivore && animal.AnimalSize >= a.AnimalSize);
         }
+
+        public bool CanAddAnimal(Animal animal, ExperimentalCart cart)
+        {
+            return !cart.Animals.Any<Animal>(a => animal.IsCarnivore && animal.AnimalSize >= a.AnimalSize);
+        }
     }
 }

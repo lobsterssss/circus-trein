@@ -15,5 +15,10 @@
         {
            return animal.AnimalSize <= Animal.Size.Medium;
         }
+
+        public bool CanAddAnimal(Animal animal, ExperimentalCart cart)
+        {
+            return animal.AnimalSize <= Animal.Size.Medium;
+        }
     }
 }

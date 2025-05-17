@@ -13,7 +13,12 @@
         /// <inheritdoc/>
         public bool CanAddAnimal(Animal animal, Cart cart)
         {
-            return cart.GetAnimalAmount() < 2;
+            return true;
+        }
+
+        public bool CanAddAnimal(Animal animal, ExperimentalCart cart)
+        {
+            return cart.GetAnimalAmount() < cart.MaxAnimals;
         }
     }
 }

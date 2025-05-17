@@ -16,18 +16,12 @@ namespace CircusTrain
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            AnimalCollection.CreateMultipleAnimals(int.Parse(lblSH.Text), int.Parse(lblMH.Text), int.Parse(lblLH.Text), int.Parse(lblSC.Text), int.Parse(lblMC.Text), int.Parse(lblLC.Text));
-            
-            train = circus.MoveAnimals();
+        {            
+            train = circus.MoveAnimals(int.Parse(lblSH.Text), int.Parse(lblMH.Text), int.Parse(lblLH.Text), int.Parse(lblSC.Text), int.Parse(lblMC.Text), int.Parse(lblLC.Text));
 
             lblCartCount.Text = train.GetCount().ToString();
-            string show = "";
-            foreach (var cart in train.GetTrain())
-            {
-                show = show + cart.ToString() + "\n";
-            }
-            lblTrein.Text = show;
+
+            lblTrein.Text = train.ShowTrain();
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -15,5 +15,10 @@
         {
            return (int)animal.AnimalSize + cart.CurrentCapacity <= cart.MaxCapacity;
         }
+
+        public bool CanAddAnimal(Animal animal, ExperimentalCart cart)
+        {
+            return (int)animal.AnimalSize + cart.CurrentCapacity <= cart.MaxCapacity;
+        }
     }
 }

@@ -15,7 +15,7 @@
             foreach (Cart cart in this.train.Where<Cart>(cart => cart.CurrentCapacity < cart.MaxCapacity))
             {
                 int search = cart.MaxCapacity - cart.CurrentCapacity;
-                animals = animals.OrderByDescending(animal => animal.IsCarnivore).ThenByDescending(animal => search % 5 == 0 ? animal.AnimalSize : search - animal.AnimalSize).ToList();
+                animals = animals.OrderByDescending(animal => animal.IsCarnivore).ThenByDescending(animal => search % (int)Enum.GetValues(typeof(Animal.Size)).Cast<Animal.Size>().Max() == 0 ? animal.AnimalSize : search - animal.AnimalSize).ToList();
                 if (cart.CheckCartConstraints(animals.First()))
                 {
                     cart.AddAnimal(animals.First());
@@ -79,6 +79,16 @@
             {
                 this.train.Remove(cart);
             }
+        }
+
+        public string ShowTrain()
+        {
+            string show = "";
+            foreach (Cart item in this.GetTrain())
+            {
+                show = show + item.ToString() + "\n";
+            }
+            return show;
         }
     }
 }

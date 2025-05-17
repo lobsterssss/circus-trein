@@ -8,20 +8,20 @@
     using System.Threading.Tasks;
     using CircusTrain;
 
-    internal static class AnimalCollection
+    internal class AnimalCollection
     {
-        private static List<Animal> animals = new List<Animal>();
+        private List<Animal> Animals = new List<Animal>();
 
-        public static List<Animal> GetAnimalList()
+        public List<Animal> GetAnimalList()
         {
             List<Animal> animals = new List<Animal>();
-            animals.AddRange(AnimalCollection.animals);
+            animals.AddRange(this.Animals);
             return animals;
         }
 
-        public static void ClearAnimalList()
+        public void ClearAnimalList()
         {
-            animals.Clear();
+            Animals.Clear();
         }
 
         /// <summary>
@@ -33,41 +33,43 @@
         /// <param name="sC">adds x amount of small carnivores animals.</param>
         /// <param name="mC">adds x amount of medium carnivores animals.</param>
         /// <param name="lC">adds x amount of large carnivores animals.</param>
-        public static void CreateMultipleAnimals(int sH, int mH, int lH, int sC, int mC, int lC)
+        public List<Animal> CreateMultipleAnimals(int sH, int mH, int lH, int sC, int mC, int lC)
         {
             /* adds herbivores */
-            animals.Clear();
+            this.Animals.Clear();
 
             for (int i = 0; i < lH; i++)
             {
-                animals.Add(new Animal(Animal.Size.Large, isCarnivore: false));
+                this.Animals.Add(new Animal(Animal.Size.Large, isCarnivore: false));
             }
 
             for (int i = 0; i < mH; i++)
             {
-                animals.Add(new Animal(Animal.Size.Medium, isCarnivore: false));
+                this.Animals.Add(new Animal(Animal.Size.Medium, isCarnivore: false));
             }
 
             for (int i = 0; i < sH; i++)
             {
-                animals.Add(new Animal(Animal.Size.Small, isCarnivore: false));
+                this.Animals.Add(new Animal(Animal.Size.Small, isCarnivore: false));
             }
 
             /* adds carnivores */
             for (int i = 0; i < lC; i++)
             {
-                animals.Add(new Animal(Animal.Size.Large, isCarnivore: true));
+                this.Animals.Add(new Animal(Animal.Size.Large, isCarnivore: true));
             }
 
             for (int i = 0; i < mC; i++)
             {
-                animals.Add(new Animal(Animal.Size.Medium, isCarnivore: true));
+                this.Animals.Add(new Animal(Animal.Size.Medium, isCarnivore: true));
             }
 
             for (int i = 0; i < sC; i++)
             {
-                animals.Add(new Animal(Animal.Size.Small, isCarnivore: true));
+                this.Animals.Add(new Animal(Animal.Size.Small, isCarnivore: true));
             }
+
+            return this.Animals;
         }
     }
 }

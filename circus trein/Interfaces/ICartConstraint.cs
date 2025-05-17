@@ -17,5 +17,8 @@
         /// <param name="cart">the cart to which the rules will be applied.</param>
         /// <returns>bool.</returns>
         public bool CanAddAnimal(Animal animal, Cart cart);
+
+        public bool CanAddAnimal(Animal animal, ExperimentalCart cart);
+
     }
 }

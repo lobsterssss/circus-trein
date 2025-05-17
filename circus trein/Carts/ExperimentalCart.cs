@@ -10,14 +10,15 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ExperimentalCart"/> class.
         /// </summary>
-        public ExperimentalCart()
+        public ExperimentalCart(int MaxAnimals = 2)
         {
+            this.MaxAnimals = MaxAnimals;
             this.cartConstraints = new List<ICartConstraint>();
             this.cartConstraints.Add(new ExperimentalCartCapacity());
             this.cartConstraints.Add(new ExperimentalCartMaxSize());
         }
 
-        public int MaxAnimals { get; private set; } = 2;
+        public int MaxAnimals { get; private set; }
 
         /// <summary>
         /// checks if a Object Animal can be put inside of this class and adds it.

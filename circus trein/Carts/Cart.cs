@@ -12,8 +12,9 @@ namespace CircusTrain.Carts
         /// <summary>
         /// Initializes a new instance of the <see cref="Cart"/> class.
         /// </summary>
-        public Cart()
+        public Cart(int MaxCapacity = 10)
         {
+            this.MaxCapacity = MaxCapacity;
             this.Animals = new List<Animal>();
             this.cartConstraints = new List<ICartConstraint>();
             this.cartConstraints.Add(new CartCapacity());
@@ -25,7 +26,7 @@ namespace CircusTrain.Carts
 
         public int CurrentCapacity { get; private set; }
 
-        public int MaxCapacity { get; private set; } = 10;
+        public int MaxCapacity { get; private set; }
 
         /// <summary>
         /// checks if a Object Animal can be put inside of this class and adds it.

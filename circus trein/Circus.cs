@@ -12,18 +12,15 @@ namespace CircusTrain
 {
     internal class Circus
     {
-        private AnimalCollection animalCollection = new AnimalCollection();
 
         public Train MoveAnimals(int sH, int mH, int lH, int sC, int mC, int lC)
         {
             Train train = new Train();
-            List<Animal> animals = this.animalCollection.CreateMultipleAnimals(sH, mH, lH, sC, mC, lC);
+            List<Animal> animals = AnimalFactory.CreateAnimals(sH, mH, lH, sC, mC, lC);
 
             animals = animals.OrderByDescending(animal => animal.IsCarnivore).ThenByDescending(animal => animal.AnimalSize).ToList();
-            while (animals.Count() != 0)
-            {
-                animals = train.AddAnimal(animals);
-            }
+
+            train.AddAnimals(animals);
 
             train.AddExperimental();
             return train;

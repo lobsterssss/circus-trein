@@ -7,19 +7,16 @@ namespace CircusTrain.Carts
 {
     internal class Cart
     {
-        private readonly List<ICartConstraint> cartConstraints;
+        protected List<ICartConstraint> cartConstraints;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cart"/> class.
         /// </summary>
-        public Cart(int MaxCapacity = 10)
+        public Cart(List<ICartConstraint> cartConstraints, int MaxCapacity = 10)
         {
             this.MaxCapacity = MaxCapacity;
             this.Animals = new List<Animal>();
-            this.cartConstraints = new List<ICartConstraint>();
-            this.cartConstraints.Add(new CartCapacity());
-            this.cartConstraints.Add(new AnimalBiggerThanLargestCarnivore());
-            this.cartConstraints.Add(new CarnivoreSmallerThanSmallestAnimal());
+            this.cartConstraints = cartConstraints;
         }
 
         public List<Animal> Animals { get; private set; }
@@ -33,17 +30,15 @@ namespace CircusTrain.Carts
         /// </summary>
         /// <param name="animal">the Animal that is being checked and added.</param>
         /// <returns>bool.</returns>
-        public bool AddAnimal(Animal animal)
+        public void TryToAddAnimal(Animal animal)
         {
             if (!this.CheckCartConstraints(animal))
             {
-                return false;
+                throw new InvalidOperationException("Cart constraints not met for the given animal.");
             }
 
             this.Animals.Add(animal);
             this.CurrentCapacity = this.CalculateCurrentCapacity();
-
-            return true;
         }
 
         /// <summary>

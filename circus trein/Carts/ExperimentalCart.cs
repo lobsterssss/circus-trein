@@ -5,17 +5,15 @@
 
     internal class ExperimentalCart : Cart
     {
-        private readonly List<ICartConstraint> cartConstraints;
+        //private readonly List<ICartConstraint> cartConstraints;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExperimentalCart"/> class.
         /// </summary>
-        public ExperimentalCart(int MaxAnimals = 2)
+        public ExperimentalCart(List<ICartConstraint> cartConstraints, int MaxAnimals = 2)
+            : base(cartConstraints)
         {
             this.MaxAnimals = MaxAnimals;
-            this.cartConstraints = new List<ICartConstraint>();
-            this.cartConstraints.Add(new ExperimentalCartCapacity());
-            this.cartConstraints.Add(new ExperimentalCartMaxSize());
         }
 
         public int MaxAnimals { get; private set; }
@@ -25,17 +23,6 @@
         /// </summary>
         /// <param name="animal">the Animal that is being checked and added.</param>
         /// /// <returns>Bool.</returns>
-        public new bool AddAnimal(Animal animal)
-        {
-            if (!this.CheckCartConstraints(animal))
-            {
-                return false;
-            }
-
-            this.Animals.Add(animal);
-
-            return true;
-        }
 
         /// <summary>
         /// checks if a Object Animal can be put inside of this class.

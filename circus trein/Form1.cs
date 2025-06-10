@@ -19,7 +19,7 @@ namespace CircusTrain
         {            
             train = circus.MoveAnimals(int.Parse(lblSH.Text), int.Parse(lblMH.Text), int.Parse(lblLH.Text), int.Parse(lblSC.Text), int.Parse(lblMC.Text), int.Parse(lblLC.Text));
 
-            lblCartCount.Text = train.GetCount().ToString();
+            lblCartCount.Text = train.GetCartCount().ToString();
 
             lblTrein.Text = train.ShowTrain();
         }

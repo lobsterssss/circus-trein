@@ -9,6 +9,8 @@
     internal class Train
     {
         private List<Cart> train = new List<Cart>();
+        private int experimentalCartCountLeft = 4;
+
 
         public void AddAnimals(List<Animal> animals)
         {
@@ -47,7 +49,6 @@
         public void AddExperimental()
         {
             ExperimentalCart experimentalCart = new ExperimentalCart([new ExperimentalCartMaxSize(), new ExperimentalCartCapacity()]);
-            int experimentalCartCount = 1;
             foreach (Cart cart in this.train.Where<Cart>(cart => cart.GetAnimalAmount() == 1 && cart.Animals.First().AnimalSize <= Animal.Size.Medium).ToList())
             {
                 Animal onlyAnimal = cart.Animals.First();
@@ -56,10 +57,10 @@
                     experimentalCart.TryToAddAnimal(onlyAnimal);
                     this.train.Remove(cart);
                 }
-                else if (experimentalCartCount < 4)
+                else if (experimentalCartCountLeft == 0)
                 {
                     this.train.Add(experimentalCart);
-                    experimentalCartCount++;
+                    experimentalCartCountLeft--;
                     experimentalCart = new ExperimentalCart([new ExperimentalCartMaxSize(), new ExperimentalCartCapacity()]);
                     experimentalCart.TryToAddAnimal(onlyAnimal);
                     this.train.Remove(cart);
